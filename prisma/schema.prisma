@@ -1,0 +1,89 @@
+// Gera o client do Prisma (prisma generate)
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Fonte de dados: usando SQLite (conforme solicitado)
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de usuário (tabela users)
+model User {
+  id           Int       @id @default(autoincrement()) // PK
+  name         String?                                   // nome opcional
+  email        String    @unique                         // email único
+  passwordHash String                                   // senha (hash)
+  role         UserRole  @default(USER)                  // role (USER/ADMIN)
+  createdAt    DateTime  @default(now())
+  profile      Profile?                                  // relação 1-1 opcional
+}
+
+// Enum para roles
+enum UserRole {
+  USER
+  ADMIN
+}
+
+// Perfil do usuário (opcional)
+model Profile {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int      @unique
+  fullName  String
+  birthDate DateTime?
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Time NBA
+model Team {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  city         String?
+  abbreviation String   @unique
+  logoUrl      String?
+  players      Player[] // relação 1-many
+  createdAt    DateTime @default(now())
+}
+
+// Jogador
+model Player {
+  id        Int          @id @default(autoincrement())
+  name      String
+  number    Int?
+  position  String?
+  heightCm  Int?
+  weightKg  Int?
+  photoUrl  String?
+  teamId    Int? 
+  team      Team?        @relation(fields: [teamId], references: [id])
+  stats     SeasonStat[]
+  createdAt DateTime     @default(now())
+}
+
+// Estatísticas por temporada (one-to-many com Player)
+model SeasonStat {
+  id        Int      @id @default(autoincrement())
+  season    String
+  games     Int      @default(0)
+  points    Float    @default(0)
+  rebounds  Float    @default(0)
+  assists   Float    @default(0)
+  playerId  Int
+  player    Player   @relation(fields: [playerId], references: [id])
+  updatedAt DateTime @updatedAt
+}
+
+// Log de transferências (registro histórico)
+model TransferLog {
+  id          Int      @id @default(autoincrement())
+  playerId    Int
+  fromTeamId  Int?
+  toTeamId    Int?
+  performedBy Int?
+  createdAt   DateTime @default(now())
+}
+

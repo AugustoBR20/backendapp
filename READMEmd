@@ -1,0 +1,15 @@
+# NBA Backend API
+
+## Instalação
+1. `npm install`
+2. `npx prisma generate`
+3. `npx prisma migrate dev`
+4. `npx prisma db seed`
+5. `npm run start:dev`
+
+## Endpoints principais
+- POST /api/auth/register - Registrar usuário
+- POST /api/auth/login - Login
+- GET /api/teams - Listar times
+- GET /api/players - Listar jogadores
+- POST /api/players/:id/transfer - Transferir jogador

@@ -1,0 +1,8 @@
+### Teste 1 - Login simples
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@nba.local",
+  "password": "admin123"
+}

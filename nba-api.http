@@ -1,0 +1,111 @@
+@baseUrl = http://localhost:3000/api
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiYWRtaW5AbmJhLmxvY2FsIiwibmFtZSI6IkFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzYwNDYzNTExLCJleHAiOjE3NjA1NDk5MTF9.QACV91i2wQ6mBm5NaXDEJymoRoqxlBzte0zpZlMYEK4
+
+### 1. Login admin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@nba.local",
+  "password": "admin123"
+}
+
+### 2. Verificar token admin
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{adminToken}}
+
+### 3. Listar times (público)
+GET {{baseUrl}}/teams
+
+### 4. Criar time (ADMIN)
+POST {{baseUrl}}/teams
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "Boston Celtics",
+  "city": "Boston",
+  "abbreviation": "BOS"
+}
+
+### 5. Listar jogadores (público)
+GET {{baseUrl}}/players
+
+### 6. Criar jogador (ADMIN)
+POST {{baseUrl}}/players
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "Player Demo",
+  "number": 11,
+  "position": "SG",
+  "teamId": 1
+}
+
+### 7. Transferir jogador (ADMIN)
+POST {{baseUrl}}/players/1/transfer
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "toTeamId": 2
+}
+
+### 8. Criar usuário comum (ADMIN)
+POST {{baseUrl}}/users
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "User Demo",
+  "email": "user.demo@nba.local",
+  "password": "user1234"
+}
+
+### 9. Login do usuário comum
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "user.demo@nba.local",
+  "password": "user1234"
+}
+
+### 10. Criar perfil do usuário
+POST {{baseUrl}}/profiles
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "userId": 3,
+  "fullName": "User Demo Profile",
+  "birthDate": "1993-05-10T00:00:00.000Z",
+  "avatarUrl": "https://example.com/avatar.png"
+}
+
+### 11. TESTE DELETE - Deletar jogador (ADMIN)
+DELETE {{baseUrl}}/players/3
+Authorization: Bearer {{adminToken}}
+
+### 12. TESTE DELETE - Deletar time (ADMIN)
+DELETE {{baseUrl}}/teams/2
+Authorization: Bearer {{adminToken}}
+
+### 13. TESTE DELETE - Deletar usuário (ADMIN)
+DELETE {{baseUrl}}/users/3
+Authorization: Bearer {{adminToken}}
+
+### 14. TESTE DELETE - Deletar perfil (ADMIN)
+DELETE {{baseUrl}}/profiles/1
+Authorization: Bearer {{adminToken}}
+
+### 15. Verificar se foram deletados - Listar times
+GET {{baseUrl}}/teams
+
+### 16. Verificar se foram deletados - Listar jogadores
+GET {{baseUrl}}/players
+
+### 17. Verificar se foram deletados - Listar usuários
+GET {{baseUrl}}/users
+Authorization: Bearer {{adminToken}}
