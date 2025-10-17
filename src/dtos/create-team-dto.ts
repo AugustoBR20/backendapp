@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsInt, Min } from 'class-validator';
 
 export class CreateTeamDTO {
   @IsNotEmpty() @IsString() name: string;
-  @IsOptional() @IsString() city?: string;
-  @IsNotEmpty() @IsString() abbreviation: string;
   @IsOptional() @IsString() logoUrl?: string;
+  @IsNotEmpty() @IsString() conference: string;
+  @IsOptional() @IsInt() @Min(0) titles?: number;
 }

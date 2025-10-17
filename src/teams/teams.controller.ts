@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { TeamsRepository } from './repository/teams.repository';
 import { CreateTeamDTO } from 'src/dtos/create-team-dto';
 import { UpdateTeamDTO } from 'src/dtos/update-team-dto';
@@ -14,7 +14,7 @@ export class TeamsController {
 
   // GET /api/teams/:id (público)
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) { return this.teamsRepo.findOne(id); }
+  findOne(@Param('id') id: string) { return this.teamsRepo.findOne(id); }
 
   // Rotas a seguir exigem ADMIN
   @UseGuards(JwtAuthGuard)
@@ -23,9 +23,9 @@ export class TeamsController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateTeamDTO) { return this.teamsRepo.update(id, dto); }
+  update(@Param('id') id: string, @Body() dto: UpdateTeamDTO) { return this.teamsRepo.update(id, dto); }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) { return this.teamsRepo.delete(id); }
+  delete(@Param('id') id: string) { return this.teamsRepo.delete(id); }
 }

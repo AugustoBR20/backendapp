@@ -4,6 +4,6 @@ export class UpdatePlayerDTO {
   @IsOptional() @IsString() name?: string;
   @IsOptional() @IsInt() number?: number;
   @IsOptional() @IsString() position?: string;
-  @IsOptional() @IsInt() teamId?: number | null;
+  @IsOptional() @IsString() teamId?: string | null;
   @IsOptional() @IsString() photoUrl?: string;
 }

@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsInt } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-// DTO para transferência de jogador: exige toTeamId (int)
+// DTO para transferência de jogador: exige toTeamId (string)
 export class TransferPlayerDTO {
-  @IsNotEmpty() @IsInt() toTeamId: number;
+  @IsNotEmpty() @IsString() toTeamId: string;
 }

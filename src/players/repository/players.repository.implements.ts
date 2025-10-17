@@ -15,7 +15,7 @@ export class PlayersRepositoryImpl implements PlayersRepository {
   // busca com filtros simples (teamId, position)
   async findAll(query?: any) {
     const where: any = {};
-    if (query?.teamId) where.teamId = Number(query.teamId);
+    if (query?.teamId) where.teamId = query.teamId;
     if (query?.position) where.position = query.position;
     return this.prisma.player.findMany({ where, include: { stats: true, team: true } });
   }
@@ -38,7 +38,7 @@ export class PlayersRepositoryImpl implements PlayersRepository {
   }
 
   // transferência: envolve transação para garantir atomicidade
-  async transfer(playerId: number, toTeamId: number, performedBy?: number) {
+  async transfer(playerId: number, toTeamId: string, performedBy?: number) {
     return this.prisma.$transaction(async (tx) => {
       // busca jogador atual
       const player = await tx.player.findUnique({ where: { id: playerId } });

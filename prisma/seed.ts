@@ -24,22 +24,24 @@ async function main() {
 
   // times iniciais (LAL e MIA)
   const lakers = await prisma.team.upsert({
-    where: { abbreviation: "LAL" },
+    where: { name: "Los Angeles Lakers" },
     update: {},
     create: {
       name: "Los Angeles Lakers",
-      city: "Los Angeles",
-      abbreviation: "LAL"
+      logoUrl: "https://example.com/lakers-logo.png",
+      conference: "Western",
+      titles: 17
     }
   });
 
   const heat = await prisma.team.upsert({
-    where: { abbreviation: "MIA" },
+    where: { name: "Miami Heat" },
     update: {},
     create: {
       name: "Miami Heat",
-      city: "Miami",
-      abbreviation: "MIA"
+      logoUrl: "https://example.com/heat-logo.png",
+      conference: "Eastern",
+      titles: 3
     }
   });
 
@@ -64,7 +66,7 @@ async function main() {
     }
   });
 
-  console.log("✅ Seed completa:", { admin: admin.email, teams: [lakers.abbreviation, heat.abbreviation], player: player.name });
+  console.log("✅ Seed completa:", { admin: admin.email, teams: [lakers.name, heat.name], player: player.name });
 }
 
 main()

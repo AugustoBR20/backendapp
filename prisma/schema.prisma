@@ -40,13 +40,14 @@ model Profile {
 
 // Time NBA
 model Team {
-  id           Int      @id @default(autoincrement())
-  name         String   @unique
-  city         String?
-  abbreviation String   @unique
-  logoUrl      String?
-  players      Player[] // relação 1-many
-  createdAt    DateTime @default(now())
+  id         String   @id @default(uuid())
+  name       String   @unique
+  logoUrl    String? 
+  conference String   @default("Unknown")
+  titles     Int      @default(0) 
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  players Player[]
 }
 
 // Jogador
@@ -58,8 +59,8 @@ model Player {
   heightCm  Int?
   weightKg  Int?
   photoUrl  String?
-  teamId    Int? 
-  team      Team?        @relation(fields: [teamId], references: [id])
+  teamId    String? 
+  team      Team?        @relation(fields: [teamId], references: [id], onDelete: SetNull)
   stats     SeasonStat[]
   createdAt DateTime     @default(now())
 }
@@ -81,8 +82,8 @@ model SeasonStat {
 model TransferLog {
   id          Int      @id @default(autoincrement())
   playerId    Int
-  fromTeamId  Int?
-  toTeamId    Int?
+  fromTeamId  String?
+  toTeamId    String?
   performedBy Int?
   createdAt   DateTime @default(now())
 }

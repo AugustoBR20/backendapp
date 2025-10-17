@@ -6,6 +6,6 @@ export class CreatePlayerDTO {
   @IsOptional() @IsString() position?: string;
   @IsOptional() @IsInt() @Min(150) @Max(250) heightCm?: number;
   @IsOptional() @IsInt() @Min(50) @Max(200) weightKg?: number;
-  @IsOptional() @IsInt() teamId?: number | null;
+  @IsOptional() @IsString() teamId?: string | null;
   @IsOptional() @IsString() photoUrl?: string;
 }
