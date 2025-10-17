@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3000/api
-@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiYWRtaW5AbmJhLmxvY2FsIiwibmFtZSI6IkFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzYwNDYzNTExLCJleHAiOjE3NjA1NDk5MTF9.QACV91i2wQ6mBm5NaXDEJymoRoqxlBzte0zpZlMYEK4
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiYWRtaW5AbmJhLmxvY2FsIiwibmFtZSI6IkFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzYwNzM3MTA5LCJleHAiOjE3NjA4MjM1MDl9.p98tHnRk6ZZk0za8SD3iYWuY7HbHr9syNrrDZD_oufc
 
 ### 1. Login admin
 POST {{baseUrl}}/auth/login
@@ -23,9 +23,7 @@ Authorization: Bearer {{adminToken}}
 Content-Type: application/json
 
 {
-  "name": "Boston Celtics",
-  "city": "Boston",
-  "abbreviation": "BOS"
+  "name": "Boston Celtics"
 }
 
 ### 5. Listar jogadores (público)

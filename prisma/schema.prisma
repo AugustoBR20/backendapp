@@ -43,7 +43,7 @@ model Team {
   id         String   @id @default(uuid())
   name       String   @unique
   logoUrl    String? 
-  conference String   @default("Unknown")
+  conference String   
   titles     Int      @default(0) 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
